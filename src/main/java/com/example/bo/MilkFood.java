@@ -1,35 +1,22 @@
 package com.example.bo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.bson.codecs.pojo.annotations.BsonDiscriminator;
+
 /**
  */
+@Data
+@NoArgsConstructor
+@BsonDiscriminator
+@ToString
 public class MilkFood implements Food {
 
-	private Integer content;
+	private Integer milkContent;
 
-	public MilkFood() {
+	public MilkFood(Integer milkContent) {
+		this.milkContent = milkContent;
 	}
 
-	public MilkFood(Integer content) {
-		this.content = content;
-	}
-
-	public Integer getContent() {
-		return content;
-	}
-
-	public void setContent(Integer content) {
-		this.content = content;
-	}
-
-	@Override
-	public String toString() {
-		return "MilkFood{" +
-				"content=" + content +
-				'}';
-	}
-
-	@Override
-	public String getType() {
-		return "milk";
-	}
 }

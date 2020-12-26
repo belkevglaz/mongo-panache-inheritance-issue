@@ -6,18 +6,28 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.bson.codecs.pojo.annotations.BsonDiscriminator;
 
 /**
+ *
  */
 @JsonTypeInfo(
-		use = JsonTypeInfo.Id.NAME,
-		include = JsonTypeInfo.As.PROPERTY,
-		property = "type")
+	use = JsonTypeInfo.Id.NAME,
+	include = JsonTypeInfo.As.PROPERTY,
+	property = "_t")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = EggFood.class, name = "egg"),
-		@JsonSubTypes.Type(value = MilkFood.class, name = "milk")
+	@JsonSubTypes.Type(value = EggFood.class, name = "egg"),
+	@JsonSubTypes.Type(value = MilkFood.class, name = "milk")
 })
-@BsonDiscriminator
-@JsonDeserialize(using = FoodDeserializer.class)
+@BsonDiscriminator()
 public interface Food {
 
-	String getType();
+	public static Food create(String type, Integer param) {
+		switch (type) {
+			case "egg":
+				return new EggFood(param);
+			case "milk":
+				return new MilkFood(param);
+			default:
+				throw new IllegalArgumentException();
+		}
+	}
+
 }
