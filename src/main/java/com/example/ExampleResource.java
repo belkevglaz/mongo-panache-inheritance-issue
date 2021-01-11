@@ -1,8 +1,8 @@
 package com.example;
 
-import com.example.bo.CowAnimal;
+import com.example.bo.Animal;
+import com.example.bo.Cow;
 import com.example.bo.Food;
-import com.example.bo.MilkFood;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
 
@@ -12,7 +12,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/hello")
@@ -21,18 +20,22 @@ import java.util.List;
 public class ExampleResource {
 
 	@GET
-	public List<CowAnimal> hello() {
-		return CowAnimal.findAll().list();
+	public List<Animal> hello() {
+		return Animal.findAll().list();
 	}
 
 	@POST
-	@Path("/{type}")
-	public CowAnimal create(@PathParam String type) {
-		CowAnimal cow = new CowAnimal();
-		Food food = Food.create(type, (int) (Math.random() * 10));
-		cow.setFood(food);
-		cow.persist();
-		return cow;
+	@Path("/{animalType}")
+	public Animal create(@PathParam String animalType, @PathParam String food) {
+
+		Animal animal = Animal.createAnimal(animalType);
+
+
+//		Food food = Food.create(type, (int) (Math.random() * 10));
+
+		animal.persist();
+
+		return animal;
 	}
 
 }

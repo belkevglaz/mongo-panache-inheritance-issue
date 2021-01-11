@@ -1,0 +1,10 @@
+###
+POST http://localhost:14000/hello/cow
+
+#
+###
+POST http://localhost:14000/hello/chicken
+
+###
+GET http://localhost:14000/hello
+
